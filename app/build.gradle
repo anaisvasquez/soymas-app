@@ -14,11 +14,24 @@ android {
         versionName '1.0'
     }
 
+    signingConfigs {
+        release {
+            // La clave llega por GitHub Actions (secretos); sin ella se usa la clave debug
+            def ks = System.getenv('KEYSTORE_FILE')
+            if (ks) {
+                storeFile file(ks)
+                storeType 'pkcs12'
+                storePassword System.getenv('KEYSTORE_PASSWORD')
+                keyAlias 'quadratech'
+                keyPassword System.getenv('KEYSTORE_PASSWORD')
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
-            // Firmado con la clave debug para poder instalar el APK directamente (sin Play Store)
-            signingConfig signingConfigs.debug
+            signingConfig System.getenv('KEYSTORE_FILE') ? signingConfigs.release : signingConfigs.debug
         }
     }
 
