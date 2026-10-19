@@ -30,6 +30,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp app/build/outputs/apk/release/app-release.apk soymas.apk
+          cp app/build/outputs/apk/release/app-release.apk QUADRATECH.apk
           gh release delete latest --yes --cleanup-tag || true
-          gh release create latest soymas.apk --title "Soymas (APK)" --notes "Descarga soymas.apk e instalalo en tu celular Android." --latest
+          gh release create latest QUADRATECH.apk --title "QUADRATECH (APK)" --notes "Descarga QUADRATECH.apk e instalalo en tu celular Android." --latest
